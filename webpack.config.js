@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var path = require('path');
+var bourbon = require('node-bourbon').includePaths;
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function getEntrySources(sources) {
@@ -31,10 +32,10 @@ var config = {
       loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap")
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('css?sourceMap!' + 'sass?sourceMap')
+      loader: ExtractTextPlugin.extract('css?sourceMap!' + "sass?includePaths[]=" + bourbon)
     }, {
       test: /\.sass$/,
-      loader: ExtractTextPlugin.extract('css?sourceMap!' + 'sass?indentedSyntax')
+      loader: ExtractTextPlugin.extract('css?sourceMap!' + "sass?indentedSyntax")
     }, {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
       loader: 'url-loader?limit=100000'
@@ -43,7 +44,10 @@ var config = {
   // devtool: "sourcemap",
   plugins: [
     new ExtractTextPlugin("[name].css", {allChunks: true, disable: false})
-  ]
+  ],
+  resolve: {
+    modulesDirectories: ['node_modules']
+  }
 };
 
 module.exports = config;

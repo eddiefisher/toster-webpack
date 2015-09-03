@@ -1,2 +1,2 @@
 require("./javascripts/application.js");
-require("./stylesheets/application.sass");
+require("./stylesheets/application.scss");
